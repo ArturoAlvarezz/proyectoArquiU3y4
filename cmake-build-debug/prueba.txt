@@ -1,0 +1,6 @@
+add 0
+hola
+me llamo
+arturo
+y soy de
+mexico

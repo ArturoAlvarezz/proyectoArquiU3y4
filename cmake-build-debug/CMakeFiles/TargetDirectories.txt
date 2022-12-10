@@ -1,0 +1,3 @@
+/home/arturo/CLionProjects/proyectoArquiU3y4/cmake-build-debug/CMakeFiles/proyectoArquiU3y4.dir
+/home/arturo/CLionProjects/proyectoArquiU3y4/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/arturo/CLionProjects/proyectoArquiU3y4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
