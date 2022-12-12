@@ -195,8 +195,11 @@ CMakeFiles/proyectoArquiU3y4.dir/main.cpp.o: /home/arturo/CLionProjects/proyecto
   /usr/include/c++/11/bits/algorithmfwd.h \
   /usr/include/c++/11/bits/stl_heap.h \
   /usr/include/c++/11/bits/stl_tempbuf.h \
-  /usr/include/c++/11/bits/uniform_int_dist.h
+  /usr/include/c++/11/bits/uniform_int_dist.h \
+  /usr/include/c++/11/bitset
 
+
+/usr/include/c++/11/bitset:
 
 /usr/include/c++/11/bits/algorithmfwd.h:
 
