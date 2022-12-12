@@ -98,26 +98,7 @@ vector<vector<string>> numerarProcesos(vector<vector<string>> datos){
     return datosFinal;
 }
 
-void pipeline(vector<vector<string>> datos){
-    int j = 0, i = 0, ciclo = 0;
-    vector<string> estapas{"IF", "ID", "EX", "MEM", "WB"};
-    vector<string> procesos{"0", "0", "0", "0", "0"};
-    cout << "Ciclo\tIF\tID\tEX\tMEM\tWB" << endl;
-    while (j == 0){
-        procesos[4] = procesos[3];
-        procesos[3] = procesos[2];
-        procesos[2] = procesos[1];
-        procesos[1] = procesos[0];
-        procesos[0] = datos[i][0];
-        i+=1, ciclo+=1;
-        cout << ciclo << "\t" << "\t" << procesos[0] << "\t" << procesos[1] << "\t" << procesos[2] << "\t" << procesos[3] << "\t" << procesos[4] << endl;
-        if (i == datos.size()){
-            j = 1;
-        }
-    }
-}
-
-void algoritmoDeConflictos(vector<vector<string>> datos){
+void nn(vector<vector<string>> datos){
     for (int i = 0; i < datos.size(); i++){
         if (datos[i][1] == "add" || datos[i][1] == "sub" || datos[i][1] == "mul" || datos[i][1] == "div" || datos[i][1] == "mod" || datos[i][1] == "and" || datos[i][1] == "or" || datos[i][1] == "lsl" || datos[i][1] == "lsr" || datos[i][1] == "asr"){
             if(i+1 < datos.size()){
@@ -224,13 +205,39 @@ void algoritmoDeConflictos(vector<vector<string>> datos){
     }
 }
 
+bool algoritmoDeConflictos(vector<vector<string>> data, int ins1, int ins2){
+    string src1, src2, dest;
+    bool hasSrc1 = false, hasSrc2 = false;
+    if (data[ins1-1][1] == "nop" || data[ins1-1][1] == "b" || data[ins1-1][1] == "beq" || data[ins1-1][1] == "bgt" || data[ins1-1][1] == "call") {
+        return false;
+    }
+    if (data[ins2-1][1] == "nop" || data[ins2-1][1] == "b" || data[ins2-1][1] == "beq" || data[ins2-1][1] == "bgt" || data[ins2-1][1] == "cmp" || data[ins2-1][1] == "st") {
+        return false;
+    }
+    src1 = data[ins1-1][3], src2 = data[ins1-1][4];
+    if(data[ins2-1][1] == "ret") {
+        hasSrc1 = true;
+    }
+    if (data[ins1-1][1] == "not" || data[ins1-1][1] == "mov") {
+       hasSrc1 = false;
+    }
+    dest = data[ins2-1][2];
+    hasSrc2 = true;
+    if(data[ins1-1][1] != "st"){
+        hasSrc2 = false;
+    }
+    if(hasSrc1 == false && src1 == dest){
+        return true;
+    }else if(hasSrc2 == false && src2 == dest) {
+        return true;
+    }
+    return false;
+}
 
 int main() {
-    //verificadorDeSintaxis(separadorDeDatos(leerTxt("prueba.txt")));
+    verificadorDeSintaxis(separadorDeDatos(leerTxt("prueba.txt")));
     vector<vector<string>> pruebas = numerarProcesos(separadorDeDatos(leerTxt("prueba.txt")));
-    pipeline(pruebas);
     cout << endl << endl;
-    algoritmoDeConflictos(pruebas);
     cout << endl << endl;
     for (int i = 0; i < pruebas.size(); i++){
         for (int j = 0; j < pruebas[i].size(); ++j) {
@@ -238,5 +245,8 @@ int main() {
         }
         cout<<endl;
     }
+    cout << endl << endl;
+    cout << algoritmoDeConflictos(pruebas, 4, 3) << endl;
+
     return 0;
 }
